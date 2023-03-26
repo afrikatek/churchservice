@@ -1,0 +1,9 @@
+{
+  "churchserviceApp": {
+    "AddressType": {
+      "null": "",
+      "POSTAL_ADDRESS": "POSTAL_ADDRESS",
+      "PHYSICAL_ADDRESS": "PHYSICAL_ADDRESS"
+    }
+  }
+}

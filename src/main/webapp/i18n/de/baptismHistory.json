@@ -1,0 +1,35 @@
+{
+  "churchserviceApp": {
+    "baptismHistory": {
+      "home": {
+        "title": "Baptism Histories",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Baptism History erstellen",
+        "createOrEditLabel": "Baptism History erstellen oder bearbeiten",
+        "notFound": "Keine Baptism Histories gefunden"
+      },
+      "created": "Baptism History erstellt mit ID {{ param }}",
+      "updated": "Baptism History aktualisiert mit ID {{ param }}",
+      "deleted": "Baptism History gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Baptism History {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Baptism History"
+      },
+      "id": "ID",
+      "lutheran": "Lutheran",
+      "previousParish": "Previous Parish",
+      "baptised": "Baptised",
+      "baptismDate": "Baptism Date",
+      "baptisedAt": "Baptised At",
+      "confirmed": "Confirmed",
+      "confirmationDate": "Confirmation Date",
+      "parishConfirmed": "Parish Confirmed",
+      "married": "Married",
+      "marriageDate": "Marriage Date",
+      "parishMarriedAt": "Parish Married At",
+      "profile": "Profile"
+    }
+  }
+}

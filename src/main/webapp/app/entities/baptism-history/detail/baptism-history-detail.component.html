@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="baptismHistory">
+      <h2 data-cy="baptismHistoryDetailsHeading">
+        <span jhiTranslate="churchserviceApp.baptismHistory.detail.title">Baptism History</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ baptismHistory.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.baptismHistory.lutheran">Lutheran</span></dt>
+        <dd>
+          <span>{{ baptismHistory.lutheran }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.baptismHistory.previousParish">Previous Parish</span></dt>
+        <dd>
+          <span>{{ baptismHistory.previousParish }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.baptismHistory.baptised">Baptised</span></dt>
+        <dd>
+          <span>{{ baptismHistory.baptised }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.baptismHistory.baptismDate">Baptism Date</span></dt>
+        <dd>
+          <span>{{ baptismHistory.baptismDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.baptismHistory.baptisedAt">Baptised At</span></dt>
+        <dd>
+          <span>{{ baptismHistory.baptisedAt | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.baptismHistory.confirmed">Confirmed</span></dt>
+        <dd>
+          <span>{{ baptismHistory.confirmed }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.baptismHistory.confirmationDate">Confirmation Date</span></dt>
+        <dd>
+          <span>{{ baptismHistory.confirmationDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.baptismHistory.parishConfirmed">Parish Confirmed</span></dt>
+        <dd>
+          <span>{{ baptismHistory.parishConfirmed }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.baptismHistory.married">Married</span></dt>
+        <dd>
+          <span>{{ baptismHistory.married }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.baptismHistory.marriageDate">Marriage Date</span></dt>
+        <dd>
+          <span>{{ baptismHistory.marriageDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.baptismHistory.parishMarriedAt">Parish Married At</span></dt>
+        <dd>
+          <span>{{ baptismHistory.parishMarriedAt }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/baptism-history', baptismHistory.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

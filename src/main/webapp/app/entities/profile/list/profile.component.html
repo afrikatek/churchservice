@@ -1,0 +1,169 @@
+<div>
+  <h2 id="page-heading" data-cy="ProfileHeading">
+    <span jhiTranslate="churchserviceApp.profile.home.title">Profiles</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="churchserviceApp.profile.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-profile"
+        [routerLink]="['/profile/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="churchserviceApp.profile.home.createLabel"> Create a new Profile </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="profiles?.length === 0">
+    <span jhiTranslate="churchserviceApp.profile.home.notFound">No Profiles found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="profiles && profiles.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="title">
+            <span jhiTranslate="churchserviceApp.profile.title">Title</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="firstName">
+            <span jhiTranslate="churchserviceApp.profile.firstName">First Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="secondNames">
+            <span jhiTranslate="churchserviceApp.profile.secondNames">Second Names</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="lastName">
+            <span jhiTranslate="churchserviceApp.profile.lastName">Last Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="idNumber">
+            <span jhiTranslate="churchserviceApp.profile.idNumber">Id Number</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="gender">
+            <span jhiTranslate="churchserviceApp.profile.gender">Gender</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="dateOfBirth">
+            <span jhiTranslate="churchserviceApp.profile.dateOfBirth">Date Of Birth</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="profileImage">
+            <span jhiTranslate="churchserviceApp.profile.profileImage">Profile Image</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="profession">
+            <span jhiTranslate="churchserviceApp.profile.profession">Profession</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="baptismHistory.id">
+            <span jhiTranslate="churchserviceApp.profile.baptismHistory">Baptism History</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="user.login">
+            <span jhiTranslate="churchserviceApp.profile.user">User</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="league.name">
+            <span jhiTranslate="churchserviceApp.profile.league">League</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="ministry.name">
+            <span jhiTranslate="churchserviceApp.profile.ministry">Ministry</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let profile of profiles; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/profile', profile.id, 'view']">{{ profile.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'churchserviceApp.Title.' + profile.title }}">{{ profile.title }}</td>
+          <td>{{ profile.firstName }}</td>
+          <td>{{ profile.secondNames }}</td>
+          <td>{{ profile.lastName }}</td>
+          <td>{{ profile.idNumber }}</td>
+          <td jhiTranslate="{{ 'churchserviceApp.Gender.' + profile.gender }}">{{ profile.gender }}</td>
+          <td>{{ profile.dateOfBirth | formatMediumDate }}</td>
+          <td>
+            <a *ngIf="profile.profileImage" (click)="openFile(profile.profileImage, profile.profileImageContentType)">
+              <img
+                [src]="'data:' + profile.profileImageContentType + ';base64,' + profile.profileImage"
+                style="max-height: 30px"
+                alt="profile image"
+              />
+            </a>
+            <span *ngIf="profile.profileImage">{{ profile.profileImageContentType }}, {{ byteSize(profile.profileImage) }}</span>
+          </td>
+          <td>{{ profile.profession }}</td>
+          <td>
+            <div *ngIf="profile.baptismHistory">
+              <a [routerLink]="['/baptism-history', profile.baptismHistory.id, 'view']">{{ profile.baptismHistory?.id }}</a>
+            </div>
+          </td>
+          <td>
+            {{ profile.user?.login }}
+          </td>
+          <td>
+            <div *ngIf="profile.league">
+              <a [routerLink]="['/league', profile.league.id, 'view']">{{ profile.league?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="profile.ministry">
+              <a [routerLink]="['/ministry', profile.ministry.id, 'view']">{{ profile.ministry?.name }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/profile', profile.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/profile', profile.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(profile)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="profiles && profiles.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

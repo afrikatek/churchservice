@@ -1,0 +1,26 @@
+{
+  "churchserviceApp": {
+    "ministry": {
+      "home": {
+        "title": "Ministries",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Ministry",
+        "createOrEditLabel": "Créer ou éditer un Ministry",
+        "notFound": "Aucun Ministry trouvé"
+      },
+      "created": "Un nouveau Ministry a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Ministry avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Ministry avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Ministry {{ id }} ?"
+      },
+      "detail": {
+        "title": "Ministry"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "profile": "Profile"
+    }
+  }
+}

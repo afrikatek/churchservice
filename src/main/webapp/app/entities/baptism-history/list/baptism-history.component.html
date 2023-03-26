@@ -1,0 +1,138 @@
+<div>
+  <h2 id="page-heading" data-cy="BaptismHistoryHeading">
+    <span jhiTranslate="churchserviceApp.baptismHistory.home.title">Baptism Histories</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="churchserviceApp.baptismHistory.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-baptism-history"
+        [routerLink]="['/baptism-history/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="churchserviceApp.baptismHistory.home.createLabel"> Create a new Baptism History </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="baptismHistories?.length === 0">
+    <span jhiTranslate="churchserviceApp.baptismHistory.home.notFound">No Baptism Histories found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="baptismHistories && baptismHistories.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="lutheran">
+            <span jhiTranslate="churchserviceApp.baptismHistory.lutheran">Lutheran</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="previousParish">
+            <span jhiTranslate="churchserviceApp.baptismHistory.previousParish">Previous Parish</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="baptised">
+            <span jhiTranslate="churchserviceApp.baptismHistory.baptised">Baptised</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="baptismDate">
+            <span jhiTranslate="churchserviceApp.baptismHistory.baptismDate">Baptism Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="baptisedAt">
+            <span jhiTranslate="churchserviceApp.baptismHistory.baptisedAt">Baptised At</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="confirmed">
+            <span jhiTranslate="churchserviceApp.baptismHistory.confirmed">Confirmed</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="confirmationDate">
+            <span jhiTranslate="churchserviceApp.baptismHistory.confirmationDate">Confirmation Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="parishConfirmed">
+            <span jhiTranslate="churchserviceApp.baptismHistory.parishConfirmed">Parish Confirmed</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="married">
+            <span jhiTranslate="churchserviceApp.baptismHistory.married">Married</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="marriageDate">
+            <span jhiTranslate="churchserviceApp.baptismHistory.marriageDate">Marriage Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="parishMarriedAt">
+            <span jhiTranslate="churchserviceApp.baptismHistory.parishMarriedAt">Parish Married At</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let baptismHistory of baptismHistories; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/baptism-history', baptismHistory.id, 'view']">{{ baptismHistory.id }}</a>
+          </td>
+          <td>{{ baptismHistory.lutheran }}</td>
+          <td>{{ baptismHistory.previousParish }}</td>
+          <td>{{ baptismHistory.baptised }}</td>
+          <td>{{ baptismHistory.baptismDate | formatMediumDate }}</td>
+          <td>{{ baptismHistory.baptisedAt | formatMediumDate }}</td>
+          <td>{{ baptismHistory.confirmed }}</td>
+          <td>{{ baptismHistory.confirmationDate | formatMediumDate }}</td>
+          <td>{{ baptismHistory.parishConfirmed }}</td>
+          <td>{{ baptismHistory.married }}</td>
+          <td>{{ baptismHistory.marriageDate | formatMediumDate }}</td>
+          <td>{{ baptismHistory.parishMarriedAt }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/baptism-history', baptismHistory.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/baptism-history', baptismHistory.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(baptismHistory)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="baptismHistories && baptismHistories.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

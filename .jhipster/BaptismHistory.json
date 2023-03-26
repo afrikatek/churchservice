@@ -1,0 +1,78 @@
+{
+  "applications": "*",
+  "changelogDate": "20230326183541",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "baptism_history",
+  "fields": [
+    {
+      "fieldName": "lutheran",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "previousParish",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "20",
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "baptised",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "baptismDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "baptisedAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "confirmed",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "confirmationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "parishConfirmed",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "20",
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "married",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "marriageDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "parishMarriedAt",
+      "fieldType": "String",
+      "fieldValidateRules": ["minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "20",
+      "fieldValidateRulesMinlength": "3"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BaptismHistory",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "profile",
+      "otherEntityRelationshipName": "baptismHistory",
+      "ownerSide": false,
+      "relationshipName": "profile",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

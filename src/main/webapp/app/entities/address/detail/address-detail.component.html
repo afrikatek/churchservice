@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="address">
+      <h2 data-cy="addressDetailsHeading"><span jhiTranslate="churchserviceApp.address.detail.title">Address</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ address.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.address.street">Street</span></dt>
+        <dd>
+          <span>{{ address.street }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.address.city">City</span></dt>
+        <dd>
+          <span>{{ address.city }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.address.province">Province</span></dt>
+        <dd>
+          <span>{{ address.province }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.address.country">Country</span></dt>
+        <dd>
+          <span>{{ address.country }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.address.addressType">Address Type</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'churchserviceApp.AddressType.' + address.addressType }}">{{ address.addressType }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.address.telephoneWork">Telephone Work</span></dt>
+        <dd>
+          <span>{{ address.telephoneWork }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.address.telephoneHome">Telephone Home</span></dt>
+        <dd>
+          <span>{{ address.telephoneHome }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.address.cellphone">Cellphone</span></dt>
+        <dd>
+          <span>{{ address.cellphone }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.address.profile">Profile</span></dt>
+        <dd>
+          <div *ngIf="address.profile">
+            <a [routerLink]="['/profile', address.profile.id, 'view']">{{ address.profile?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/address', address.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

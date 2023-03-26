@@ -1,0 +1,255 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-baptism-history-heading"
+        data-cy="BaptismHistoryCreateUpdateHeading"
+        jhiTranslate="churchserviceApp.baptismHistory.home.createOrEditLabel"
+      >
+        Create or edit a Baptism History
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="churchserviceApp.baptismHistory.lutheran" for="field_lutheran">Lutheran</label>
+          <input type="checkbox" class="form-check" name="lutheran" id="field_lutheran" data-cy="lutheran" formControlName="lutheran" />
+          <div *ngIf="editForm.get('lutheran')!.invalid && (editForm.get('lutheran')!.dirty || editForm.get('lutheran')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('lutheran')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="churchserviceApp.baptismHistory.previousParish" for="field_previousParish"
+            >Previous Parish</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="previousParish"
+            id="field_previousParish"
+            data-cy="previousParish"
+            formControlName="previousParish"
+          />
+          <div
+            *ngIf="
+              editForm.get('previousParish')!.invalid && (editForm.get('previousParish')!.dirty || editForm.get('previousParish')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('previousParish')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 3 }"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('previousParish')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 20 }"
+            >
+              This field cannot be longer than 20 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="churchserviceApp.baptismHistory.baptised" for="field_baptised">Baptised</label>
+          <input type="checkbox" class="form-check" name="baptised" id="field_baptised" data-cy="baptised" formControlName="baptised" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="churchserviceApp.baptismHistory.baptismDate" for="field_baptismDate">Baptism Date</label>
+          <div class="input-group">
+            <input
+              id="field_baptismDate"
+              data-cy="baptismDate"
+              type="text"
+              class="form-control"
+              name="baptismDate"
+              ngbDatepicker
+              #baptismDateDp="ngbDatepicker"
+              formControlName="baptismDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="baptismDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="churchserviceApp.baptismHistory.baptisedAt" for="field_baptisedAt">Baptised At</label>
+          <div class="input-group">
+            <input
+              id="field_baptisedAt"
+              data-cy="baptisedAt"
+              type="text"
+              class="form-control"
+              name="baptisedAt"
+              ngbDatepicker
+              #baptisedAtDp="ngbDatepicker"
+              formControlName="baptisedAt"
+            />
+            <button type="button" class="btn btn-secondary" (click)="baptisedAtDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="churchserviceApp.baptismHistory.confirmed" for="field_confirmed">Confirmed</label>
+          <input type="checkbox" class="form-check" name="confirmed" id="field_confirmed" data-cy="confirmed" formControlName="confirmed" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="churchserviceApp.baptismHistory.confirmationDate" for="field_confirmationDate"
+            >Confirmation Date</label
+          >
+          <div class="input-group">
+            <input
+              id="field_confirmationDate"
+              data-cy="confirmationDate"
+              type="text"
+              class="form-control"
+              name="confirmationDate"
+              ngbDatepicker
+              #confirmationDateDp="ngbDatepicker"
+              formControlName="confirmationDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="confirmationDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="churchserviceApp.baptismHistory.parishConfirmed" for="field_parishConfirmed"
+            >Parish Confirmed</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="parishConfirmed"
+            id="field_parishConfirmed"
+            data-cy="parishConfirmed"
+            formControlName="parishConfirmed"
+          />
+          <div
+            *ngIf="
+              editForm.get('parishConfirmed')!.invalid &&
+              (editForm.get('parishConfirmed')!.dirty || editForm.get('parishConfirmed')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('parishConfirmed')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 3 }"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('parishConfirmed')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 20 }"
+            >
+              This field cannot be longer than 20 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="churchserviceApp.baptismHistory.married" for="field_married">Married</label>
+          <input type="checkbox" class="form-check" name="married" id="field_married" data-cy="married" formControlName="married" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="churchserviceApp.baptismHistory.marriageDate" for="field_marriageDate"
+            >Marriage Date</label
+          >
+          <div class="input-group">
+            <input
+              id="field_marriageDate"
+              data-cy="marriageDate"
+              type="text"
+              class="form-control"
+              name="marriageDate"
+              ngbDatepicker
+              #marriageDateDp="ngbDatepicker"
+              formControlName="marriageDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="marriageDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="churchserviceApp.baptismHistory.parishMarriedAt" for="field_parishMarriedAt"
+            >Parish Married At</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="parishMarriedAt"
+            id="field_parishMarriedAt"
+            data-cy="parishMarriedAt"
+            formControlName="parishMarriedAt"
+          />
+          <div
+            *ngIf="
+              editForm.get('parishMarriedAt')!.invalid &&
+              (editForm.get('parishMarriedAt')!.dirty || editForm.get('parishMarriedAt')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('parishMarriedAt')?.errors?.minlength"
+              jhiTranslate="entity.validation.minlength"
+              [translateValues]="{ min: 3 }"
+            >
+              This field is required to be at least 3 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('parishMarriedAt')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 20 }"
+            >
+              This field cannot be longer than 20 characters.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

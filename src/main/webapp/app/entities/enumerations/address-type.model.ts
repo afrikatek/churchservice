@@ -1,0 +1,5 @@
+export enum AddressType {
+  POSTAL_ADDRESS = 'POSTAL_ADDRESS',
+
+  PHYSICAL_ADDRESS = 'PHYSICAL_ADDRESS',
+}

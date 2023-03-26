@@ -1,0 +1,37 @@
+{
+  "churchserviceApp": {
+    "profile": {
+      "home": {
+        "title": "Profiles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Maak een nieuwe Profile",
+        "createOrEditLabel": "Maak of wijzig een Profile",
+        "notFound": "No Profiles found"
+      },
+      "created": "A new Profile is created with identifier {{ param }}",
+      "updated": "A Profile is updated with identifier {{ param }}",
+      "deleted": "A Profile is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Bent u zeker dat u Profile {{ id }} wilt verwijderen?"
+      },
+      "detail": {
+        "title": "Profile"
+      },
+      "id": "ID",
+      "title": "Title",
+      "firstName": "First Name",
+      "secondNames": "Second Names",
+      "lastName": "Last Name",
+      "idNumber": "Id Number",
+      "gender": "Gender",
+      "dateOfBirth": "Date Of Birth",
+      "profileImage": "Profile Image",
+      "profession": "Profession",
+      "baptismHistory": "Baptism History",
+      "user": "User",
+      "address": "Address",
+      "league": "League",
+      "ministry": "Ministry"
+    }
+  }
+}

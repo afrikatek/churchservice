@@ -1,0 +1,26 @@
+{
+  "churchserviceApp": {
+    "ministry": {
+      "home": {
+        "title": "Ministries",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Ministry erstellen",
+        "createOrEditLabel": "Ministry erstellen oder bearbeiten",
+        "notFound": "Keine Ministries gefunden"
+      },
+      "created": "Ministry erstellt mit ID {{ param }}",
+      "updated": "Ministry aktualisiert mit ID {{ param }}",
+      "deleted": "Ministry gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Ministry {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Ministry"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "profile": "Profile"
+    }
+  }
+}

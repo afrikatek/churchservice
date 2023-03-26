@@ -1,0 +1,72 @@
+entity Profile {
+    title Title required
+    firstName String minlength(3) maxlength(50) required
+    secondNames String minlength(3) maxlength(150)
+    lastName String minlength(3) maxlength(50) required
+    idNumber String minlength(3) maxlength(15) required unique
+    gender Gender required
+    dateOfBirth LocalDate required
+    profileImage ImageBlob
+    profession String minlength(3) maxlength(100)
+}
+
+entity Address {
+    street TextBlob required
+    city String minlength(3) maxlength(50) required
+    province String minlength(3) maxlength(50) required
+    country String minlength(3) maxlength(50) required
+    addressType AddressType required
+    telephoneWork String minlength(3) maxlength(15)
+    telephoneHome String minlength(3) maxlength(15)
+    cellphone String minlength(3) maxlength(15)
+}
+
+enum Title {
+    MR, MRS, MS, DOCTOR, PROFESSOR, BACHELOR, SPINSTER
+}
+
+enum Gender {
+    MALE, FEMALE, OTHER
+}
+
+enum AddressType {
+    POSTAL_ADDRESS, PHYSICAL_ADDRESS
+}
+
+entity BaptismHistory{
+    lutheran Boolean required
+    previousParish String minlength(3) maxlength(20)
+    baptised Boolean
+    baptismDate LocalDate
+    baptisedAt LocalDate
+    confirmed Boolean
+    confirmationDate LocalDate
+    parishConfirmed String minlength(3) maxlength(20)
+    married Boolean
+    marriageDate LocalDate
+    parishMarriedAt String minlength(3) maxlength(20)
+}
+
+entity League {
+    name String minlength(3) maxlength(100) required
+    description TextBlob required
+}
+
+entity Ministry {
+    name String minlength(3) maxlength(100) required
+    description TextBlob required
+}
+
+relationship OneToOne {
+    Profile to BaptismHistory
+    Profile{user(login) required} to User
+}
+
+relationship OneToMany {
+    Profile to Address{profile}
+    League to Profile{league(name)}
+    Ministry to Profile{ministry(name)}
+}
+
+service all with serviceImpl
+paginate all with pagination

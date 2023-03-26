@@ -1,0 +1,95 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="profile">
+      <h2 data-cy="profileDetailsHeading"><span jhiTranslate="churchserviceApp.profile.detail.title">Profile</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ profile.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.title">Title</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'churchserviceApp.Title.' + profile.title }}">{{ profile.title }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ profile.firstName }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.secondNames">Second Names</span></dt>
+        <dd>
+          <span>{{ profile.secondNames }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ profile.lastName }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.idNumber">Id Number</span></dt>
+        <dd>
+          <span>{{ profile.idNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.gender">Gender</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'churchserviceApp.Gender.' + profile.gender }}">{{ profile.gender }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.dateOfBirth">Date Of Birth</span></dt>
+        <dd>
+          <span>{{ profile.dateOfBirth | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.profileImage">Profile Image</span></dt>
+        <dd>
+          <div *ngIf="profile.profileImage">
+            <a (click)="openFile(profile.profileImage, profile.profileImageContentType)">
+              <img
+                [src]="'data:' + profile.profileImageContentType + ';base64,' + profile.profileImage"
+                style="max-width: 100%"
+                alt="profile image"
+              />
+            </a>
+            {{ profile.profileImageContentType }}, {{ byteSize(profile.profileImage) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.profession">Profession</span></dt>
+        <dd>
+          <span>{{ profile.profession }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.baptismHistory">Baptism History</span></dt>
+        <dd>
+          <div *ngIf="profile.baptismHistory">
+            <a [routerLink]="['/baptism-history', profile.baptismHistory.id, 'view']">{{ profile.baptismHistory?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.user">User</span></dt>
+        <dd>
+          <span>{{ profile.user?.login }}</span>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.league">League</span></dt>
+        <dd>
+          <div *ngIf="profile.league">
+            <a [routerLink]="['/league', profile.league.id, 'view']">{{ profile.league?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="churchserviceApp.profile.ministry">Ministry</span></dt>
+        <dd>
+          <div *ngIf="profile.ministry">
+            <a [routerLink]="['/ministry', profile.ministry.id, 'view']">{{ profile.ministry?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/profile', profile.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
